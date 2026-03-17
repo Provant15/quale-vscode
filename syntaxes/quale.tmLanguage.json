@@ -5,9 +5,15 @@
     "patterns": [
         { "include": "#comments" },
         { "include": "#constructs" },
-        { "include": "#keywords" },
-        { "include": "#types" },
+        { "include": "#io" },
+        { "include": "#brain" },
+        { "include": "#events" },
+        { "include": "#control" },
+        { "include": "#modifiers" },
+        { "include": "#builtins" },
         { "include": "#verbs" },
+        { "include": "#types" },
+        { "include": "#config" },
         { "include": "#strings" },
         { "include": "#numbers" },
         { "include": "#operators" },
@@ -38,27 +44,84 @@
         "constructs": {
             "patterns": [
                 {
-                    "match": "\\b(body|item|world|fitness|evolve|dynamics|perception|action|machine)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+                    "match": "\\b(body|world|fitness|evolve|dynamics|perception|action|machine)\\s+([A-Za-z_][A-Za-z0-9_]*)",
                     "captures": {
-                        "1": { "name": "storage.type.quale" },
-                        "2": { "name": "entity.name.type.quale" }
+                        "1": { "name": "keyword.control.quale" },
+                        "2": { "name": "entity.name.quale" }
                     }
                 }
             ]
         },
-        "keywords": {
+        "io": {
+            "comment": "Sensors and actuators - purple (variable.parameter)",
+            "patterns": [
+                {
+                    "name": "variable.parameter.quale",
+                    "match": "\\b(sensor|actuator)\\b"
+                }
+            ]
+        },
+        "brain": {
+            "comment": "Brain architecture - red/pink (support.function)",
+            "patterns": [
+                {
+                    "name": "support.function.quale",
+                    "match": "\\b(region|plasticity|hebbian|decay|homeostatic)\\b"
+                }
+            ]
+        },
+        "events": {
+            "comment": "Entity interactions and events - gold (entity.name.function)",
+            "patterns": [
+                {
+                    "name": "entity.name.function.quale",
+                    "match": "\\b(on_cross|on_enter|on_pass|on_exit|on_consume|record|consume|entity|spawn)\\b"
+                }
+            ]
+        },
+        "control": {
+            "comment": "Control flow - orange (keyword)",
             "patterns": [
                 {
                     "name": "keyword.control.quale",
-                    "match": "\\b(sensor|actuator|properties|on_consume|spawn|region|plasticity|hebbian|decay|homeostatic|hidden|per_tick|rules|death|clamp|state|scope|initial|transition|on_cross|on_enter|on_pass|on_exit|let|when|else|match|for|in|record|gate|metric|aggregate|transform|consume|query|import|include|topology)\\b"
+                    "match": "\\b(when|else|match|for|in|let|if|transition|import|include)\\b"
+                }
+            ]
+        },
+        "modifiers": {
+            "comment": "Declarative modifiers - cyan (support.type)",
+            "patterns": [
+                {
+                    "name": "support.type.quale",
+                    "match": "\\b(scope|initial|state|hidden|properties|topology|query)\\b"
+                }
+            ]
+        },
+        "builtins": {
+            "comment": "Built-in functions - red/pink (support.function)",
+            "patterns": [
+                {
+                    "name": "support.function.quale",
+                    "match": "\\b(min|max|clamp|abs|sqrt|nearest_ahead|speed_zone_at|nearest|at|winner_take_all|grid_move|neighbors|connected|shortest_path)\\b"
+                }
+            ]
+        },
+        "verbs": {
+            "comment": "Fitness verbs - green (entity.name.import)",
+            "patterns": [
+                {
+                    "name": "entity.name.import.quale",
+                    "match": "\\b(maximize|reward|penalize)\\b"
                 },
                 {
-                    "name": "keyword.other.quale",
-                    "match": "\\b(category|size|walls|item_respawn|population|generations|scenarios|ticks|seed|every|keep|plateau|threshold|stagnation|target_species|range|directions|weight_shift|bias_shift|add_connection|remove_connection|add_node|remove_node|rewire|change_activation|mutation|speciation|convergence|checkpoint|seed_from|agents|nodes|density|activation|recurrent|rate|max_weight|min_weight|target_activity|adjustment_rate)\\b"
+                    "comment": "Fitness structure - cyan (support.type)",
+                    "name": "support.type.quale",
+                    "match": "\\b(gate|metric|aggregate|transform)\\b"
                 }
             ]
         },
         "types": {
+            "comment": "Sensor/actuator types - cyan (support.type)",
             "patterns": [
                 {
                     "name": "support.type.quale",
@@ -66,15 +129,20 @@
                 },
                 {
                     "name": "constant.language.quale",
-                    "match": "\\b(border|true|false)\\b"
+                    "match": "\\b(border|true|false|none)\\b"
                 }
             ]
         },
-        "verbs": {
+        "config": {
+            "comment": "Config keys - light orange (keyword.operator) and default",
             "patterns": [
                 {
-                    "name": "keyword.operator.verb.quale",
-                    "match": "\\b(maximize|reward|penalize)\\b"
+                    "name": "keyword.operator.quale",
+                    "match": "\\b(population|generations|scenarios|ticks|seed|agents|every|keep|mutation|speciation|convergence|checkpoint|seed_from)\\b"
+                },
+                {
+                    "name": "variable.other.property.quale",
+                    "match": "\\b(category|size|walls|item_respawn|range|directions|weight_shift|bias_shift|add_connection|remove_connection|add_node|remove_node|rewire|change_activation|nodes|density|activation|recurrent|rate|max_weight|min_weight|target_activity|adjustment_rate|length|max_speed|tick|respawn|plateau|threshold|stagnation|target_species|per_tick|rules|death|clamp)\\b"
                 }
             ]
         },
@@ -130,6 +198,14 @@
                 {
                     "name": "keyword.operator.logical.quale",
                     "match": "\\b(and|or|not)\\b"
+                },
+                {
+                    "name": "keyword.operator.arrow.quale",
+                    "match": "->"
+                },
+                {
+                    "name": "keyword.operator.ternary.quale",
+                    "match": "\\?"
                 }
             ]
         },
@@ -142,9 +218,16 @@
                     }
                 },
                 {
+                    "comment": "Namespace prefixes - cyan italic (variable.language)",
+                    "match": "\\b(agent|world|actuator|engine|evolve)\\.",
+                    "captures": {
+                        "1": { "name": "variable.language.quale" }
+                    }
+                },
+                {
                     "match": "(?<=\\[|,\\s*)([A-Z][A-Za-z0-9_]*)",
                     "captures": {
-                        "1": { "name": "variable.other.quale" }
+                        "1": { "name": "entity.name.quale" }
                     }
                 }
             ]
