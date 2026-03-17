@@ -1,0 +1,54 @@
+{
+    "name": "quale-lang",
+    "displayName": "Quale",
+    "description": "Syntax highlighting and snippets for the Quale neuroevolution language",
+    "version": "0.2.0",
+    "publisher": "Provant",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Provant15/quale-vscode"
+    },
+    "homepage": "https://quale.dev",
+    "bugs": {
+        "url": "https://github.com/Provant15/quale-vscode/issues"
+    },
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Snippets"
+    ],
+    "keywords": [
+        "quale",
+        "neuroevolution",
+        "NEAT",
+        "DSL",
+        "evolution"
+    ],
+    "icon": "icon.png",
+    "contributes": {
+        "languages": [
+            {
+                "id": "quale",
+                "aliases": ["Quale", "quale"],
+                "extensions": [".quale"],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "quale",
+                "scopeName": "source.quale",
+                "path": "./syntaxes/quale.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "quale",
+                "path": "./snippets/quale.json"
+            }
+        ]
+    }
+}

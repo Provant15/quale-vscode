@@ -1,0 +1,136 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Quale",
+    "scopeName": "source.quale",
+    "patterns": [
+        { "include": "#comments" },
+        { "include": "#constructs" },
+        { "include": "#keywords" },
+        { "include": "#types" },
+        { "include": "#verbs" },
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#operators" },
+        { "include": "#identifiers" }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.critical.quale",
+                    "match": "--!!.*$"
+                },
+                {
+                    "name": "comment.note.quale",
+                    "match": "--!.*$"
+                },
+                {
+                    "name": "comment.line.quale",
+                    "match": "--.*$"
+                }
+            ]
+        },
+        "constructs": {
+            "patterns": [
+                {
+                    "match": "\\b(body|item|world|fitness|evolve)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+                    "captures": {
+                        "1": { "name": "keyword.declaration.quale" },
+                        "2": { "name": "entity.name.type.quale" }
+                    }
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.quale",
+                    "match": "\\b(sensor|actuator|properties|on_consume|spawn|mutation|speciation|convergence|checkpoint|seed_from|agents)\\b"
+                },
+                {
+                    "name": "keyword.other.quale",
+                    "match": "\\b(category|size|walls|item_respawn|population|generations|scenarios|ticks|seed|every|keep|plateau|threshold|stagnation|target_species|range|directions|weight_shift|bias_shift|add_connection|remove_connection|add_node|remove_node|rewire|change_activation)\\b"
+                },
+                {
+                    "name": "keyword.other.unit.quale",
+                    "match": "\\b(ticks|generations)\\b(?=\\s*$|\\s*\\})"
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "name": "support.type.quale",
+                    "match": "\\b(internal|directional|item_property|social|trigger)\\b"
+                },
+                {
+                    "name": "constant.language.quale",
+                    "match": "\\b(border|true|false)\\b"
+                }
+            ]
+        },
+        "verbs": {
+            "patterns": [
+                {
+                    "name": "keyword.operator.verb.quale",
+                    "match": "\\b(maximize|reward|penalize)\\b"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.quale",
+                    "begin": "\"",
+                    "end": "\"",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.quale",
+                            "match": "\\\\."
+                        }
+                    ]
+                }
+            ]
+        },
+        "numbers": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.float.quale",
+                    "match": "[+-]?\\d+\\.\\d+"
+                },
+                {
+                    "name": "constant.numeric.integer.quale",
+                    "match": "[+-]?\\b\\d+\\b"
+                }
+            ]
+        },
+        "operators": {
+            "patterns": [
+                {
+                    "name": "keyword.operator.range.quale",
+                    "match": "\\.\\."
+                },
+                {
+                    "name": "keyword.operator.dimension.quale",
+                    "match": "(?<=\\d\\s)x(?=\\s\\d)"
+                }
+            ]
+        },
+        "identifiers": {
+            "patterns": [
+                {
+                    "match": "\\b(body|items|world|fitness)\\s*:",
+                    "captures": {
+                        "1": { "name": "variable.parameter.reference.quale" }
+                    }
+                },
+                {
+                    "match": "(?<=\\[|,\\s*)([A-Z][A-Za-z0-9_]*)",
+                    "captures": {
+                        "1": { "name": "entity.name.tag.quale" }
+                    }
+                }
+            ]
+        }
+    }
+}

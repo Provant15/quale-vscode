@@ -1,0 +1,209 @@
+{
+    "Body": {
+        "prefix": "body",
+        "body": [
+            "body ${1:Name} {",
+            "    sensor ${2:name}:     internal(0..1)",
+            "    sensor ${3:nearby}:   directional(range: ${4:20}, directions: 4)",
+            "",
+            "    actuator ${5:move}:   directional(threshold: 0.5, directions: 4)",
+            "    actuator ${6:act}:    trigger(threshold: 0.5)",
+            "}"
+        ],
+        "description": "Define an agent body with sensors and actuators"
+    },
+    "Sensor Internal": {
+        "prefix": "sensor-internal",
+        "body": [
+            "sensor ${1:name}: internal(0..1)"
+        ],
+        "description": "Internal state sensor (one brain input node)"
+    },
+    "Sensor Directional": {
+        "prefix": "sensor-directional",
+        "body": [
+            "sensor ${1:name}: directional(range: ${2:20}, directions: 4)"
+        ],
+        "description": "Directional sensor (4 brain input nodes: N/S/E/W)"
+    },
+    "Sensor Item Property": {
+        "prefix": "sensor-property",
+        "body": [
+            "sensor ${1:name}: item_property(${2:field})"
+        ],
+        "description": "Item property sensor (nearest item's observable property)"
+    },
+    "Sensor Social": {
+        "prefix": "sensor-social",
+        "body": [
+            "sensor ${1:peer_health}: social(${2:health})"
+        ],
+        "description": "Social sensor (peer agent's visible state, requires agents: 2)"
+    },
+    "Actuator Directional": {
+        "prefix": "actuator-directional",
+        "body": [
+            "actuator ${1:move}: directional(threshold: ${2:0.5}, directions: 4)"
+        ],
+        "description": "Directional actuator (4 brain output nodes, winner-take-all)"
+    },
+    "Actuator Trigger": {
+        "prefix": "actuator-trigger",
+        "body": [
+            "actuator ${1:act}: trigger(threshold: ${2:0.5})"
+        ],
+        "description": "Trigger actuator (fires when activation exceeds threshold)"
+    },
+    "Item": {
+        "prefix": "item",
+        "body": [
+            "item ${1:Name} {",
+            "    category: ${2:resource}",
+            "    properties {",
+            "        ${3:color}: ${4:0.5}",
+            "    }",
+            "    on_consume {",
+            "        ${5:energy}: ${6:+0.3}",
+            "    }",
+            "}"
+        ],
+        "description": "Define an item with observable properties and hidden effects"
+    },
+    "World": {
+        "prefix": "world",
+        "body": [
+            "world ${1:Name} {",
+            "    size: ${2:10} x ${3:10}",
+            "    walls: border",
+            "    item_respawn: ${4:30} ticks",
+            "    spawn ${5:resource}: ${6:4}",
+            "}"
+        ],
+        "description": "Define a world grid with item spawning"
+    },
+    "Fitness": {
+        "prefix": "fitness",
+        "body": [
+            "fitness ${1:Name} {",
+            "    maximize survival:  ${2:10.0}",
+            "    maximize ${3:health}:    ${4:5.0}",
+            "    reward   ${5:collected}: ${6:2.0}",
+            "    penalize ${7:idle}:      ${8:1.0}",
+            "    penalize complexity: 0.001",
+            "}"
+        ],
+        "description": "Define fitness objectives (what success looks like)"
+    },
+    "Evolve": {
+        "prefix": "evolve",
+        "body": [
+            "evolve ${1:Name} {",
+            "    body:        ${2:AgentBody}",
+            "    items:       [${3:Item1, Item2}]",
+            "    world:       ${4:WorldName}",
+            "    fitness:     ${5:FitnessName}",
+            "",
+            "    population:  ${6:200}",
+            "    generations: ${7:1000}",
+            "    scenarios:   ${8:5}",
+            "    ticks:       ${9:300}",
+            "    seed:        ${10:42}",
+            "    agents:      ${11:1}",
+            "}"
+        ],
+        "description": "Define an evolution experiment"
+    },
+    "Evolve with Mutation": {
+        "prefix": "evolve-full",
+        "body": [
+            "evolve ${1:Name} {",
+            "    body:        ${2:AgentBody}",
+            "    items:       [${3:Item1, Item2}]",
+            "    world:       ${4:WorldName}",
+            "    fitness:     ${5:FitnessName}",
+            "",
+            "    population:  ${6:200}",
+            "    generations: ${7:1000}",
+            "    scenarios:   ${8:5}",
+            "    ticks:       ${9:300}",
+            "    seed:        ${10:42}",
+            "    agents:      ${11:1}",
+            "",
+            "    mutation {",
+            "        weight_shift:      0.8",
+            "        bias_shift:        0.1",
+            "        add_connection:    0.05",
+            "        remove_connection: 0.03",
+            "        add_node:          0.03",
+            "        remove_node:       0.01",
+            "        rewire:            0.02",
+            "        change_activation: 0.01",
+            "    }",
+            "",
+            "    speciation {",
+            "        threshold:      3.0",
+            "        target_species: 15",
+            "        stagnation:     15 generations",
+            "    }",
+            "",
+            "    convergence {",
+            "        plateau:   200 generations",
+            "        threshold: 0.5",
+            "    }",
+            "",
+            "    checkpoint {",
+            "        every: 100 generations",
+            "        keep:  3",
+            "    }",
+            "}"
+        ],
+        "description": "Define an evolution experiment with all optional blocks"
+    },
+    "Mutation Block": {
+        "prefix": "mutation",
+        "body": [
+            "mutation {",
+            "    weight_shift:      ${1:0.8}",
+            "    bias_shift:        ${2:0.1}",
+            "    add_connection:    ${3:0.05}",
+            "    remove_connection: ${4:0.03}",
+            "    add_node:          ${5:0.03}",
+            "    remove_node:       ${6:0.01}",
+            "    rewire:            ${7:0.02}",
+            "    change_activation: ${8:0.01}",
+            "}"
+        ],
+        "description": "Mutation rate configuration block"
+    },
+    "Speciation Block": {
+        "prefix": "speciation",
+        "body": [
+            "speciation {",
+            "    threshold:      ${1:3.0}",
+            "    target_species: ${2:15}",
+            "    stagnation:     ${3:15} generations",
+            "}"
+        ],
+        "description": "Speciation configuration block"
+    },
+    "Convergence Block": {
+        "prefix": "convergence",
+        "body": [
+            "convergence {",
+            "    plateau:   ${1:200} generations",
+            "    threshold: ${2:0.5}",
+            "}"
+        ],
+        "description": "Convergence detection block"
+    },
+    "Checkpoint Block": {
+        "prefix": "checkpoint",
+        "body": [
+            "checkpoint {",
+            "    every: ${1:100} generations",
+            "    keep:  ${2:3}",
+            "}"
+        ],
+        "description": "Checkpoint save configuration"
+    }
+}
