@@ -7,7 +7,7 @@ Quale is a domain-specific language for evolving neural networks using NEAT (Neu
 ## Features
 
 - Syntax highlighting for all `.quale` constructs
-- Three-tier comment system (`--`, `--!`, `--!!`)
+- Semantic comment system (`--`, `--!`, `--!!`, `--[ ]--`)
 - Code snippets for rapid scaffolding
 - Auto-closing brackets and string pairs
 - Code folding on brace blocks
@@ -21,6 +21,12 @@ Quale uses a semantic comment system:
 -- Regular comment (discarded by parser)
 --! NOTE: this needs calibration    (note - preserved in AST)
 --!! FIXME: hardcoded value         (critical - blocks --strict mode)
+
+--[
+    Block comments span multiple lines.
+    Useful for temporarily disabling sections
+    or writing longer explanations.
+]--
 ```
 
 | Syntax | Purpose | Visibility |
@@ -28,6 +34,7 @@ Quale uses a semantic comment system:
 | `--` | Author notes, scratchpad | Parser discards |
 | `--!` | Notes, TODOs | Shown in `quale check` |
 | `--!!` | Critical issues | Fails `quale check --strict` |
+| `--[ ... ]--` | Block comment | Parser discards |
 
 ## Snippets
 

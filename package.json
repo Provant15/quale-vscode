@@ -2,7 +2,7 @@
     "name": "quale-lang",
     "displayName": "Quale",
     "description": "Syntax highlighting and snippets for the Quale neuroevolution language",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "Provant",
     "license": "MIT",
     "repository": {

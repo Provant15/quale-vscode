@@ -17,15 +17,20 @@
         "comments": {
             "patterns": [
                 {
-                    "name": "comment.critical.quale",
+                    "name": "comment.block.quale",
+                    "begin": "--\\[",
+                    "end": "\\]--"
+                },
+                {
+                    "name": "comment.line.critical.quale",
                     "match": "--!!.*$"
                 },
                 {
-                    "name": "comment.note.quale",
+                    "name": "comment.line.note.quale",
                     "match": "--!.*$"
                 },
                 {
-                    "name": "comment.line.quale",
+                    "name": "comment.line.double-dash.quale",
                     "match": "--.*$"
                 }
             ]
@@ -33,9 +38,9 @@
         "constructs": {
             "patterns": [
                 {
-                    "match": "\\b(body|item|world|fitness|evolve)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+                    "match": "\\b(body|item|world|fitness|evolve|dynamics|perception|action|machine)\\s+([A-Za-z_][A-Za-z0-9_]*)",
                     "captures": {
-                        "1": { "name": "keyword.declaration.quale" },
+                        "1": { "name": "storage.type.quale" },
                         "2": { "name": "entity.name.type.quale" }
                     }
                 }
@@ -45,15 +50,11 @@
             "patterns": [
                 {
                     "name": "keyword.control.quale",
-                    "match": "\\b(sensor|actuator|properties|on_consume|spawn|mutation|speciation|convergence|checkpoint|seed_from|agents)\\b"
+                    "match": "\\b(sensor|actuator|properties|on_consume|spawn|region|plasticity|hebbian|decay|homeostatic|hidden|per_tick|rules|death|clamp|state|scope|initial|transition|on_cross|on_enter|on_pass|on_exit|let|when|else|match|for|in|record|gate|metric|aggregate|transform|consume|query|import|include|topology)\\b"
                 },
                 {
                     "name": "keyword.other.quale",
-                    "match": "\\b(category|size|walls|item_respawn|population|generations|scenarios|ticks|seed|every|keep|plateau|threshold|stagnation|target_species|range|directions|weight_shift|bias_shift|add_connection|remove_connection|add_node|remove_node|rewire|change_activation)\\b"
-                },
-                {
-                    "name": "keyword.other.unit.quale",
-                    "match": "\\b(ticks|generations)\\b(?=\\s*$|\\s*\\})"
+                    "match": "\\b(category|size|walls|item_respawn|population|generations|scenarios|ticks|seed|every|keep|plateau|threshold|stagnation|target_species|range|directions|weight_shift|bias_shift|add_connection|remove_connection|add_node|remove_node|rewire|change_activation|mutation|speciation|convergence|checkpoint|seed_from|agents|nodes|density|activation|recurrent|rate|max_weight|min_weight|target_activity|adjustment_rate)\\b"
                 }
             ]
         },
@@ -113,21 +114,37 @@
                 {
                     "name": "keyword.operator.dimension.quale",
                     "match": "(?<=\\d\\s)x(?=\\s\\d)"
+                },
+                {
+                    "name": "keyword.operator.comparison.quale",
+                    "match": ">=|<=|!=|>|<"
+                },
+                {
+                    "name": "keyword.operator.assignment.quale",
+                    "match": "\\+=|-=|\\*="
+                },
+                {
+                    "name": "keyword.operator.arithmetic.quale",
+                    "match": "\\+|-|\\*|/"
+                },
+                {
+                    "name": "keyword.operator.logical.quale",
+                    "match": "\\b(and|or|not)\\b"
                 }
             ]
         },
         "identifiers": {
             "patterns": [
                 {
-                    "match": "\\b(body|items|world|fitness)\\s*:",
+                    "match": "\\b(body|items|world|fitness|dynamics|perception|action)\\s*:",
                     "captures": {
-                        "1": { "name": "variable.parameter.reference.quale" }
+                        "1": { "name": "variable.parameter.quale" }
                     }
                 },
                 {
                     "match": "(?<=\\[|,\\s*)([A-Z][A-Za-z0-9_]*)",
                     "captures": {
-                        "1": { "name": "entity.name.tag.quale" }
+                        "1": { "name": "variable.other.quale" }
                     }
                 }
             ]
