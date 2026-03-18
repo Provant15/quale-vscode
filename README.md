@@ -68,5 +68,5 @@ code --install-extension Provant.quale-lang
 ## Links
 
 - [Quale Documentation](https://quale.dev/docs/)
-- [Quale Engine](https://github.com/Provant15/quale)
-- [Report Issues](https://github.com/Provant15/quale-vscode/issues)
+- [Quale Engine](https://github.com/QualeDev/Engine)
+- [Report Issues](https://github.com/QualeDev/VSCode/issues)

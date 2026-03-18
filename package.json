@@ -7,11 +7,11 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Provant15/quale-vscode"
+        "url": "https://github.com/QualeDev/VSCode"
     },
     "homepage": "https://quale.dev",
     "bugs": {
-        "url": "https://github.com/Provant15/quale-vscode/issues"
+        "url": "https://github.com/QualeDev/VSCode/issues"
     },
     "engines": {
         "vscode": "^1.80.0"
